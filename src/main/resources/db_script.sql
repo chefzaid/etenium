@@ -4,11 +4,17 @@ CREATE TABLE IdentiferType (
 	label VARCHAR(32)
 )
 
-CREATE TABLE Identifer (
+CREATE TABLE SubcontractorType (
 	id INT PRIMARY KEY,
-	type VARCHAR(32),
-	number VARCHAR(50),
+	label VARCHAR(32)
+)
+
+CREATE TABLE Subcontractor (
+	id INT PRIMARY KEY,
+	name VARCHAR(50)
+	identifier VARCHAR(50),
 	identifierType_id INT FOREIGN KEY REFERENCES IdentifierType(id)
+	subcontractorType_id INT FOREIGN KEY REFERENCES SubcontractorType(id)
 )
 
 CREATE TABLE Lot (
@@ -22,16 +28,10 @@ CREATE TABLE Trade (
 	lot_id INT FOREIGN KEY REFERENCES Lot(id)
 )
 
-CREATE TABLE SubcontractorType (
+CREATE TABLE SubcontractorTrade (
 	id INT PRIMARY KEY,
-	label VARCHAR(32)
-)
-
-CREATE TABLE Subcontractor (
-	id INT PRIMARY KEY,
-	name VARCHAR(50)
-	trade_id INT FOREIGN KEY REFERENCES Trade(id),
-	subcontractorType_id INT FOREIGN KEY REFERENCES SubcontractorType(id)
+	subcontractor_id INT FOREIGN KEY REFERENCES Subcontractor(id),
+	trade_id INT FOREIGN KEY REFERENCES Trade(id)
 )
 
 CREATE TABLE Contact (
@@ -40,13 +40,8 @@ CREATE TABLE Contact (
 	lastName VARCHAR(50),
 	job VARCHAR(50),
 	phone VARCHAR(32),
-	email VARCHAR(32)
-)
-
-CREATE TABLE SubcontractorContact (
-	id INT PRIMARY KEY,
-	subcontractor_id INT,
-	contact_id INT
+	email VARCHAR(32),
+	subcontractor_id INT FOREIGN KEY REFERENCES Subcontractor(id),
 )
 
 CREATE TABLE Project (
@@ -58,6 +53,6 @@ CREATE TABLE Rating (
 	id INT PRIMARY KEY,
 	project_id INT,
 	subcontractor_id INT,
-	grade INT,
+	stars INT,
 	comments VARCHAR(255)
 )
