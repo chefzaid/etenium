@@ -15,7 +15,7 @@ import lombok.Data;
 public class SubcontractorType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	private String label;
 	@OneToMany
 	private List<Subcontractor> subcontractors;

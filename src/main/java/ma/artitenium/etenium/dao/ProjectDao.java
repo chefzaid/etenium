@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ma.artitenium.etenium.entity.Project;
 
 @Repository
-public interface ProjectDao extends CrudRepository<Project, Long> {
+public interface ProjectDao extends CrudRepository<Project, Integer> {
 
 }

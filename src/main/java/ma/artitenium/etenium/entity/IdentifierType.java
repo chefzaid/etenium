@@ -12,6 +12,6 @@ import lombok.Data;
 public class IdentifierType {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	private String label;
 }

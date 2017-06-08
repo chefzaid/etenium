@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ma.artitenium.etenium.entity.Rating;
 
 @Repository
-public interface RatingDao extends CrudRepository<Rating, Long> {
+public interface RatingDao extends CrudRepository<Rating, Integer> {
 
 }

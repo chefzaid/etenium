@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ma.artitenium.etenium.entity.Contact;
 
 @Repository
-public interface ContactDao extends CrudRepository<Contact, Long> {
+public interface ContactDao extends CrudRepository<Contact, Integer> {
 
 }

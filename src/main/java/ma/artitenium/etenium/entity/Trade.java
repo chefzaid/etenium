@@ -16,7 +16,7 @@ import lombok.Data;
 public class Trade {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	private String label;
 	@ManyToOne
 	private Lot lot;

@@ -18,7 +18,7 @@ import lombok.Data;
 public class Subcontractor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
+	private Integer id;
 	private String name;
 	private String identifier;
 	@OneToOne
