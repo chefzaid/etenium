@@ -1,0 +1,22 @@
+
+<div data-ng-controller="ProjectController">
+	<h1>Saisie des projets</h1>
+	<form id="projectForm">
+		<label>Nom du projet : </label> <input type="text" id="projectName" data-ng-model="name" />
+		<input type="submit" value="Ajouter" id="projectAddBtn" data-ng-click="project.add()" />
+	</form>
+	<br />
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="text-center">Projets disponibles</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat = "project in projects">
+				<td>{{ project.name }}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
