@@ -1,15 +1,31 @@
-app.controller('ProjectController', [ '$scope', function($scope, $http) {
-	$scope.projects = [];
+app.controller('ProjectController', [ '$scope', '$http', function($scope, $http) {
+	var API_URL = 'http://localhost:8080/etenium/api/';
+	
+	$scope.projectsList = [];
 	
 	$scope.project = {
-		add : function() {
+		findAll : function() {
+			return $http({
+	            method : 'GET',
+	            url : API_URL + 'project/all',
+	        });
+		},
+		save : function() {
 			var projectName = $scope.name;
 			var project = {
 				name: projectName
 			};
-			$scope.projects.push(project);
-			console.log($scope.projects);
+			$scope.projectsList.push(project);
+			return $http({
+		        method : 'POST',
+		        url : API_URL + 'project/save',
+		        data : {
+		            name : projectName
+		        }
+		    });
 			// TODO rest call to save
 		}
 	};
+	
+	$scope.projects = $scope.project.findAll();
 } ]);

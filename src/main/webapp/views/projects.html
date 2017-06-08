@@ -1,21 +1,26 @@
 
 <div data-ng-controller="ProjectController">
-	<h1>Saisie des projets</h1>
+	<h1>Projets</h1>
 	<form id="projectForm">
 		<label>Nom du projet : </label> <input type="text" id="projectName" data-ng-model="name" />
-		<input type="submit" value="Ajouter" id="projectAddBtn" data-ng-click="project.add()" />
+		<input type="submit" value="Valider" id="projectAddBtn" data-ng-click="project.save()" />
 	</form>
 	<br />
 
+	<h3>Liste</h3>
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th class="text-center">Projets disponibles</th>
+				<th class="text-center">Nom</th>
+				<th class="text-center"></th>
+				<th class="text-center"></th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-repeat = "project in projects">
+			<tr data-ng-repeat = "project in projectsList">
 				<td>{{ project.name }}</td>
+				<td><a href="">Modifier</a></td>
+				<td><a href="">Supprimer</a></td>
 			</tr>
 		</tbody>
 	</table>
