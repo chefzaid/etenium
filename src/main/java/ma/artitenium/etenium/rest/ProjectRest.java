@@ -1,6 +1,7 @@
 package ma.artitenium.etenium.rest;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -50,10 +51,11 @@ public class ProjectRest {
 		return Response.ok().build();
 	}
 	
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response delete(Project entity) {
-		projectService.save(entity);
+	@DELETE
+	@Path("/{id}")
+	public Response delete(@PathParam("id") Integer id) {
+		Project entity = projectService.findById(id);
+		projectService.delete(entity);
 		return Response.ok().build();
 	}
 }

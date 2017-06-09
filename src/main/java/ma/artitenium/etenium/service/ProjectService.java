@@ -2,6 +2,7 @@ package ma.artitenium.etenium.service;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +18,20 @@ public class ProjectService {
 	private ProjectDao projectDao;
 
 	public List<Project> findAll() {
-		return (List<Project>) projectDao.findAll();
+		List<Project> list = (List<Project>) projectDao.findAll();
+		Hibernate.initialize(list);
+		return list;
 	}
 
 	public Project findById(Integer id) {
-		return projectDao.findOne(id);
+		Project project = projectDao.findOne(id);
+		Hibernate.initialize(project);
+		return project;
 	}
 
 	public List<Project> findByName(String name) {
-		return projectDao.findByName(name);
+		List<Project> list = projectDao.findByName(name);
+		return list;
 	}
 
 	public void save(Project entity) {

@@ -4,9 +4,9 @@ app.controller('ProjectController', [ '$scope', '$http', function($scope, $http)
 	
 	$scope.project = {
 		findAll : function() {
-			return $http({
-	            method : 'GET',
-	            url : API_URL + '/project/all',
+			$http.get(API_URL + '/project/all').
+	        then(function(response) {
+	            $scope.projectsList = response.data;
 	        });
 		},
 		save : function() {
@@ -15,7 +15,7 @@ app.controller('ProjectController', [ '$scope', '$http', function($scope, $http)
 				name: projectName
 			};
 			$scope.projectsList.push(project);
-			return $http({
+			$http({
 		        method : 'POST',
 		        url : API_URL + '/project',
 		        data : {
@@ -31,5 +31,5 @@ app.controller('ProjectController', [ '$scope', '$http', function($scope, $http)
 		}
 	};
 	
-	$scope.projects = $scope.project.findAll();
+	$scope.project.findAll();
 } ]);

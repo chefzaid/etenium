@@ -17,6 +17,6 @@ public class Project {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	private String name;
-	@ManyToMany
-	private List<Subcontractor> subcontractors;
+//	@ManyToMany
+//	private List<Subcontractor> subcontractors;
 }
