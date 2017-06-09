@@ -1,13 +1,12 @@
 app.controller('ProjectController', [ '$scope', '$http', function($scope, $http) {
-	var API_URL = 'http://localhost:8080/etenium/api/';
-	
+	var API_URL = 'http://localhost:8080/etenium/api';
 	$scope.projectsList = [];
 	
 	$scope.project = {
 		findAll : function() {
 			return $http({
 	            method : 'GET',
-	            url : API_URL + 'project/all',
+	            url : API_URL + '/project/all',
 	        });
 		},
 		save : function() {
@@ -18,12 +17,17 @@ app.controller('ProjectController', [ '$scope', '$http', function($scope, $http)
 			$scope.projectsList.push(project);
 			return $http({
 		        method : 'POST',
-		        url : API_URL + 'project/save',
+		        url : API_URL + '/project',
 		        data : {
 		            name : projectName
 		        }
 		    });
-			// TODO rest call to save
+		},
+		deleteProject : function() {
+			return $http({
+	            method : 'DELETE',
+	            url : API_URL + '/project',
+	        });
 		}
 	};
 	

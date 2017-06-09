@@ -1,23 +1,114 @@
 
 <div data-ng-controller="SubcontractorController">
-	<h1>Saisie des sous-traitants</h1>
-	<form id="companyForm">
-		<label>Nom du sous-traitant : </label>
-		<input type="text" id="companyName" />
-		<input type="submit" value="Ajouter" id="companyAddBtn" />
+	<h2>Sous-traitants</h2>
+	<form id="subcontractorForm">
+		<label>Raison Sociale : </label>
+		<input type="text" id="subcontractorName" />
+		<label>Type : </label>
+		<select id="subcontractorType">
+			<!-- TODO options -->
+		</select>
+		<br /><br />
+		
+		<label>Identifiant : </label>
+		<input type="text" id="identifier" />
+		<label>Type Identifiant : </label>
+		<select id="identifierType">
+			<!-- TODO options -->
+		</select>
+		
+		<h2>Lots</h2>
+		<input type="checkbox" id="vehicle1" value="Bike"> <label>Lot1</label>
+		<input type="checkbox" id="vehicle2" value="Car"> <label>Lot2</label>
+	
+		<h2>Corps d'état</h2>
+		<input type="checkbox" id="vehicle1" value="Bike"> <label>Trade1</label>
+		<input type="checkbox" id="vehicle2" value="Car"> <label>Trade2</label>
+		<br /><br />
+		
+		<input type="submit" value="Enregistrer" id="subcontractorSaveBtn" />
 	</form>
-	<br/>
+	<hr/>
 
-	<h1>Recherche des sous-traitants</h1>
-	<form id="companySearchForm">
-		<label>Nom du sous-traitant : </label>
-		<input type="text" id="companyName" />
-		<input type="submit" value="Rechercher" id="companySearchBtn" />
+	<h2>Contacts</h2>
+	<form id="contactForm">
+		<label>Nom : </label>
+		<input type="text" id="lastname" />
+		<label>Prénom : </label>
+		<input type="text" id="firstname" />
+		<label>Fonction : </label>
+		<input type="text" id="job" />
+		<br /><br />
+		
+		<label>Email : </label>
+		<input type="text" id="job" />
+		<label>Phone : </label>
+		<input type="text" id="phone" />
+		<br /><br />
+		
+		<input type="submit" value="Enregitrer" id="contactSaveBtn" />
 	</form>
-	<h3>R�sultat de la recherche</h3>
-	<div></div> <!-- TODO Grid result -->
-	<br/>
-
-	<h1>Tous les sous-traitants</h1>
-	<div></div> <!-- TODO Grid All -->
+	<h3>Liste</h3>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="text-center">Nom</th>
+				<th class="text-center">Prénom</th>
+				<th class="text-center">Fonction</th>
+				<th class="text-center">Email</th>
+				<th class="text-center">Phone</th>
+				<th class="text-center"></th>
+				<th class="text-center"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat = "contact in contactsList">
+				<td>{{ contact.lastname }}</td>
+				<td>{{ contact.firstname }}</td>
+				<td>{{ contact.fonction }}</td>
+				<td>{{ contact.email }}</td>
+				<td>{{ contact.phone }}</td>
+				<td><a href="">Modifier</a></td>
+				<td><a href="">Supprimer</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<hr />
+	
+	<h2>Projets et Notes</h2>
+	<form id="projectRatingForm">
+		<label>Projet : </label>
+		<select id="projectName">
+			<!-- TODO options -->
+		</select>
+		<label>Note : </label>
+		<input id="ex1" data-slider-id='ex1Slider' type="text" 
+			data-slider-min="0" data-slider-max="5" data-slider-step="1" data-slider-value="3"/>
+		<br /><br />
+		<textarea rows="3" cols="50"></textarea>
+		<br /><br />
+		<input type="submit" value="Enregistrer" id="projectRatingSaveBtn" />
+	</form>
+	<h3>Liste</h3>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="text-center">Projet</th>
+				<th class="text-center">Note</th>
+				<th class="text-center">Commentaires</th>
+				<th class="text-center"></th>
+				<th class="text-center"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat = "projectRating in projectsRatingsList">
+				<td>{{ projectRating.name }}</td>
+				<td>{{ projectRating.rating }}</td>
+				<td>{{ projectRating.comments }}</td>
+				<td><a href="">Modifier</a></td>
+				<td><a href="">Supprimer</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<p>Note moyenne du sous-traitant : {{ avgRating }} / 5</p>
 </div>

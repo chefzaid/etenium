@@ -28,14 +28,7 @@ public class ProjectRest {
 	public Response findAll() {
 		return Response.ok().entity(projectService.findAll()).build();
 	}
-
-	@GET
-	@Path("/id/{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findById(@PathParam("id") Integer id) {
-		return Response.ok().entity(projectService.findById(id)).build();
-	}
-
+	
 	@GET
 	@Path("/name/{name}")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -43,10 +36,23 @@ public class ProjectRest {
 		return Response.ok().entity(projectService.findByName(name)).build();
 	}
 
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findById(@PathParam("id") Integer id) {
+		return Response.ok().entity(projectService.findById(id)).build();
+	}
+
 	@POST
-	@Path("/save")
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response save(Project entity) {
+		projectService.save(entity);
+		return Response.ok().build();
+	}
+	
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response delete(Project entity) {
 		projectService.save(entity);
 		return Response.ok().build();
 	}

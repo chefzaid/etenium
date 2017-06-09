@@ -32,4 +32,8 @@ public class ProjectService {
 		log.debug("saving......");
 		projectDao.save(entity);
 	}
+	
+	public void delete(Project entity) {
+		projectDao.delete(entity);
+	}
 }
