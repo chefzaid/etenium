@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class Rating {
 	private Subcontractor subcontractor;
 	@ManyToOne
 	private Project project;
+	@NotNull
 	private Integer stars;
 	private String comments;
 }

@@ -5,11 +5,13 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -19,7 +21,9 @@ public class Subcontractor {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
+	@NotNull
 	private String name;
+	@NotNull
 	private String identifier;
 	@Enumerated(EnumType.STRING)
 	private IdentifierType identifierType;
@@ -29,8 +33,8 @@ public class Subcontractor {
 	private List<Trade> trades;
 	@ManyToMany
 	private List<Project> projects;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Contact> contacts;
-	@OneToMany
+	@OneToMany(fetch = FetchType.EAGER)
 	private List<Rating> ratings;
 }
