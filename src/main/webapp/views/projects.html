@@ -1,8 +1,11 @@
 
 <div data-ng-controller="ProjectController">
 	<h1>Projets</h1>
+	<br />
 	<form id="projectForm">
-		<label>Nom du projet : </label> <input type="text" id="projectName" data-ng-model="name" size="50" />
+		<label>Nom du projet : </label>
+		<input type="text" id="projectName" data-ng-model="prj.name" size="50" />
+		<input type="hidden" id="projectId" data-ng-model="prj.id" />
 		<input type="submit" value="Enregistrer" id="projectSaveBtn" data-ng-click="project.save()" />
 	</form>
 	<br />
@@ -17,10 +20,10 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-ng-repeat = "project in projectsList">
-				<td>{{ project.name }}</td>
-				<td><a href="">Modifier</a></td>
-				<td><a href="">Supprimer</a></td>
+			<tr data-ng-repeat = "p in projectsList">
+				<td class="col-md-8">{{ p.name }}</td>
+				<td class="col-md-2"><a href="" data-ng-click="project.findById(p.id)">Modifier</a></td>
+				<td class="col-md-2"><a href="" data-ng-click="project.deleteProject(p.id)">Supprimer</a></td>
 			</tr>
 		</tbody>
 	</table>

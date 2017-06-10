@@ -21,6 +21,5 @@ app.config(function($routeProvider) {
 });
 
 app.run(function($rootScope) {
-	// REST API Endpoint:
-	$rootScope.API_URL = 'http://localhost:8080/etenium/api/';
+	
 });

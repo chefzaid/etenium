@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -33,8 +32,8 @@ public class Subcontractor {
 	private List<Trade> trades;
 	@ManyToMany
 	private List<Project> projects;
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany
 	private List<Contact> contacts;
-	@OneToMany(fetch = FetchType.EAGER)
+	@OneToMany
 	private List<Rating> ratings;
 }

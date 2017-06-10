@@ -1,7 +1,8 @@
 app.controller('ProjectController', [ '$scope', '$http', function($scope, $http) {
-	var API_URL = 'http://localhost:8080/etenium/api';
-	$scope.projectsList = [];
 	
+	activateMenuItem();
+	
+	$scope.projectsList = [];
 	$scope.project = {
 		findAll : function() {
 			$http.get(API_URL + '/project/all').
@@ -9,24 +10,26 @@ app.controller('ProjectController', [ '$scope', '$http', function($scope, $http)
 	            $scope.projectsList = response.data;
 	        });
 		},
-		save : function() {
-			var projectName = $scope.name;
-			var project = {
-				name: projectName
-			};
-			$scope.projectsList.push(project);
-			$http({
-		        method : 'POST',
-		        url : API_URL + '/project',
-		        data : {
-		            name : projectName
-		        }
-		    });
+		findById : function(id) {
+			$http.get(API_URL + '/project/' + id).
+	        then(function(response) {
+	            $scope.prj = response.data;
+	        });
 		},
-		deleteProject : function() {
-			return $http({
-	            method : 'DELETE',
-	            url : API_URL + '/project',
+		save : function() {
+			var data = {
+				id: $scope.prj.id,
+				name: $scope.prj.name
+			};
+			$http.post(API_URL + '/project', data).
+	        then(function(response) {
+	        	$scope.project.findAll();
+	        });
+		},
+		deleteProject : function(id) {
+			$http.delete(API_URL + '/project/' + id).
+	        then(function(response) {
+	        	$scope.project.findAll();
 	        });
 		}
 	};
