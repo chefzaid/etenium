@@ -23,14 +23,9 @@
 		<input type="checkbox" id="vehicle1" value="Bike"> <label>Trade1</label>
 		<input type="checkbox" id="vehicle2" value="Car"> <label>Trade2</label>
 		<br /><br />
-		
-		<input type="submit" value="Enregistrer" id="subcontractorSaveBtn" />
-	</form>
-	<br /><br />
-	<hr/>
+		<hr/>
 
-	<h2>Contacts</h2>
-	<form id="contactForm">
+		<h2>Contacts</h2>
 		<label>Nom : </label>
 		<input type="text" id="lastname" />
 		<label>Prénom : </label>
@@ -45,38 +40,36 @@
 		<input type="text" id="phone" />
 		<br /><br />
 		
-		<input type="submit" value="Enregitrer" id="contactSaveBtn" />
-	</form>
-	<h3>Liste</h3>
-	<table class="table table-bordered table-striped">
-		<thead>
-			<tr>
-				<th class="text-center">Nom</th>
-				<th class="text-center">Prénom</th>
-				<th class="text-center">Fonction</th>
-				<th class="text-center">Email</th>
-				<th class="text-center">Phone</th>
-				<th class="text-center"></th>
-				<th class="text-center"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr data-ng-repeat = "contact in contactsList">
-				<td>{{ contact.lastname }}</td>
-				<td>{{ contact.firstname }}</td>
-				<td>{{ contact.fonction }}</td>
-				<td>{{ contact.email }}</td>
-				<td>{{ contact.phone }}</td>
-				<td><a href="">Modifier</a></td>
-				<td><a href="">Supprimer</a></td>
-			</tr>
-		</tbody>
-	</table>
-	<br /><br />
-	<hr />
-	
-	<h2>Projets et Notes</h2>
-	<form id="projectRatingForm">
+		<input type="button" value="Enregitrer" id="contactSaveBtn" />
+		<h3>Liste</h3>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th class="text-center">Nom</th>
+					<th class="text-center">Prénom</th>
+					<th class="text-center">Fonction</th>
+					<th class="text-center">Email</th>
+					<th class="text-center">Phone</th>
+					<th class="text-center"></th>
+					<th class="text-center"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat = "contact in contactsList">
+					<td>{{ contact.lastname }}</td>
+					<td>{{ contact.firstname }}</td>
+					<td>{{ contact.fonction }}</td>
+					<td>{{ contact.email }}</td>
+					<td>{{ contact.phone }}</td>
+					<td><a href="">Modifier</a></td>
+					<td><a href="">Supprimer</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<br /><br />
+		<hr />
+		
+		<h2>Projets et Notes</h2>
 		<label>Projet : </label>
 		<select id="projectName">
 			<!-- TODO options -->
@@ -88,28 +81,32 @@
 		<label>Commentaires : </label><br />
 		<textarea rows="5" cols="100"></textarea>
 		<br /><br />
-		<input type="submit" value="Enregistrer" id="projectRatingSaveBtn" />
+		<input type="button" value="Enregistrer" id="projectRatingSaveBtn" />
+		<h3>Liste</h3>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th class="text-center">Projet</th>
+					<th class="text-center">Note</th>
+					<th class="text-center">Commentaires</th>
+					<th class="text-center"></th>
+					<th class="text-center"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr data-ng-repeat = "projectRating in projectsRatingsList">
+					<td>{{ projectRating.name }}</td>
+					<td>{{ projectRating.rating }}</td>
+					<td>{{ projectRating.comments }}</td>
+					<td><a href="">Modifier</a></td>
+					<td><a href="">Supprimer</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<p>Note moyenne du sous-traitant : {{ avgRating }} / 5</p>
+		<br /><br />
+		<hr />
+		
+		<input type="submit" value="Enregistrer" id="subcontractorSaveBtn" />
 	</form>
-	<h3>Liste</h3>
-	<table class="table table-bordered table-striped">
-		<thead>
-			<tr>
-				<th class="text-center">Projet</th>
-				<th class="text-center">Note</th>
-				<th class="text-center">Commentaires</th>
-				<th class="text-center"></th>
-				<th class="text-center"></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr data-ng-repeat = "projectRating in projectsRatingsList">
-				<td>{{ projectRating.name }}</td>
-				<td>{{ projectRating.rating }}</td>
-				<td>{{ projectRating.comments }}</td>
-				<td><a href="">Modifier</a></td>
-				<td><a href="">Supprimer</a></td>
-			</tr>
-		</tbody>
-	</table>
-	<p>Note moyenne du sous-traitant : {{ avgRating }} / 5</p>
 </div>

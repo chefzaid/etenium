@@ -11,5 +11,6 @@ public class RestServices extends ResourceConfig {
 
 	public RestServices() {
 		register(ProjectRest.class);
+		register(SubcontractorRest.class);
 	}
 }

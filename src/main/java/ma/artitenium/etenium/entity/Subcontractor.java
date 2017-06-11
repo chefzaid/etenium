@@ -2,6 +2,7 @@ package ma.artitenium.etenium.entity;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,12 +29,12 @@ public class Subcontractor {
 	private IdentifierType identifierType;
 	@Enumerated(EnumType.STRING)
 	private SubcontractorType type;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE)
 	private List<Trade> trades;
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.MERGE)
 	private List<Project> projects;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.MERGE)
 	private List<Contact> contacts;
-	@OneToMany
+	@OneToMany(cascade = CascadeType.MERGE)
 	private List<Rating> ratings;
 }
