@@ -5,23 +5,21 @@
 		<label>Raison Sociale : </label>
 		<input type="text" id="subcontractorName" />
 		<label>Type : </label>
-		<select id="subcontractorType">
-			<!-- TODO options -->
-		</select>
+		<select id="subcontractorType" data-ng-model="subcontractor.sType" data-ng-options="st for st in subcontractorTypeList"></select>
 		<label>Identifiant : </label>
 		<input type="text" id="identifier" />
 		<label>Type Identifiant : </label>
-		<select id="identifierType">
-			<!-- TODO options -->
-		</select>
+		<select id="identifierType" data-ng-model="subcontractor.idType" data-ng-options = "it for it in identifierTypeList"></select>
 		
 		<h2>Lots</h2>
-		<input type="checkbox" id="vehicle1" value="Bike"> <label>Lot1</label>
-		<input type="checkbox" id="vehicle2" value="Car"> <label>Lot2</label>
+		<span data-ng-repeat = "l in lotList">
+			<input type="checkbox" id="lot-{{ l.id }}" value="{{ l.id }}"> <label>{{ l.label }}</label>
+		</span>
 	
 		<h2>Corps d'état</h2>
-		<input type="checkbox" id="vehicle1" value="Bike"> <label>Trade1</label>
-		<input type="checkbox" id="vehicle2" value="Car"> <label>Trade2</label>
+		<span data-ng-repeat = "t in tradeList">
+			<input type="checkbox" id="trade-{{ t.id }}" value="{{ t.id }}"> <label>{{ t.label }}</label>
+		</span>
 		<br /><br />
 		<hr/>
 
@@ -40,7 +38,7 @@
 		<input type="text" id="phone" />
 		<br /><br />
 		
-		<input type="button" value="Enregitrer" id="contactSaveBtn" />
+		<input type="button" value="Enregitrer Contact" id="contactSaveBtn" />
 		<h3>Liste</h3>
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -81,7 +79,7 @@
 		<label>Commentaires : </label><br />
 		<textarea rows="5" cols="100"></textarea>
 		<br /><br />
-		<input type="button" value="Enregistrer" id="projectRatingSaveBtn" />
+		<input type="button" value="Enregistrer Projet" id="projectRatingSaveBtn" />
 		<h3>Liste</h3>
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -107,6 +105,6 @@
 		<br /><br />
 		<hr />
 		
-		<input type="submit" value="Enregistrer" id="subcontractorSaveBtn" />
+		<input type="submit" value="Enregistrer Sous-Traitant" id="subcontractorSaveBtn" />
 	</form>
 </div>

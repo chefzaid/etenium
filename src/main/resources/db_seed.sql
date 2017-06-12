@@ -1,17 +1,4 @@
 
--- Subcontractor Type
-INSERT INTO subcontractor_type VALUES(1, 'Artisan');
-INSERT INTO subcontractor_type VALUES(2, 'TPE');
-INSERT INTO subcontractor_type VALUES(3 ,'PME');
-INSERT INTO subcontractor_type VALUES(4, 'Grande Entreprise');
-
-
--- Identifier Type
-INSERT INTO identifier_type VALUES(1, 'CIN');
-INSERT INTO identifier_type VALUES(2, 'ICE');
-INSERT INTO identifier_type VALUES(3, 'RC');
-
-
 -- Lot
 INSERT INTO lot VALUES(1, 'Electricité et réseaux');
 INSERT INTO lot VALUES(2, 'Peinture');
