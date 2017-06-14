@@ -54,8 +54,7 @@ public class ProjectRest {
 	@DELETE
 	@Path("/{id}")
 	public Response delete(@PathParam("id") Integer id) {
-		Project entity = projectService.findById(id);
-		projectService.delete(entity);
+		projectService.delete(id);
 		return Response.ok().build();
 	}
 }

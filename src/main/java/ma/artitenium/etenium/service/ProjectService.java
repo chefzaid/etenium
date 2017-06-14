@@ -33,7 +33,8 @@ public class ProjectService {
 		projectDao.save(entity);
 	}
 	
-	public void delete(Project entity) {
+	public void delete(Integer id) {
+		Project entity = projectDao.findOne(id);
 		projectDao.delete(entity);
 	}
 }

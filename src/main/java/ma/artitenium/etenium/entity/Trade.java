@@ -1,6 +1,7 @@
 package ma.artitenium.etenium.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,6 +18,6 @@ public class Trade {
 	private Integer id;
 	@NotNull
 	private String label;
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Lot lot;
 }

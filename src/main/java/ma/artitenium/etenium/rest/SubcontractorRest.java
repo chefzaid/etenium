@@ -40,20 +40,20 @@ public class SubcontractorRest {
 	@Path("/lot/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAllLot() {
-		return Response.ok().entity(subcontractorService.findAllLot()).build();
+		return Response.ok().entity(subcontractorService.findAllLots()).build();
 	}
 	
 	@GET
 	@Path("/trade/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAllTrade() {
-		return Response.ok().entity(subcontractorService.findAllTrade()).build();
+		return Response.ok().entity(subcontractorService.findAllTrades()).build();
 	}
 
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAll() {
-		return Response.ok().entity(subcontractorService.findAll()).build();
+		return Response.ok().entity(subcontractorService.findAllSubcontractors()).build();
 	}
 }

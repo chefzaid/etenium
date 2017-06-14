@@ -1,110 +1,123 @@
 
 <div data-ng-controller="SubcontractorController">
-	<h2>Sous-traitants</h2>
-	<form id="subcontractorForm">
-		<label>Raison Sociale : </label>
-		<input type="text" id="subcontractorName" />
-		<label>Type : </label>
-		<select id="subcontractorType" data-ng-model="subcontractor.sType" data-ng-options="st for st in subcontractorTypeList"></select>
-		<label>Identifiant : </label>
-		<input type="text" id="identifier" />
-		<label>Type Identifiant : </label>
-		<select id="identifierType" data-ng-model="subcontractor.idType" data-ng-options = "it for it in identifierTypeList"></select>
+	<form id='subcontractorForm'>
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#general" target="_self">Général</a></li>
+			<li><a data-toggle="tab" href="#contacts" target="_self">Contacts</a></li>
+			<li><a data-toggle="tab" href="#ratings" target="_self">Notes</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="general" class="tab-pane fade in active">
+				<h2>Sous-traitant</h2>
+				<label>Raison Sociale : </label>
+				<input type="text" id="subcontractorName" />&nbsp;&nbsp;
+				<label>Type : </label>
+				<select id="subcontractorType" data-ng-model="subcontractor.type" data-ng-options="st for st in subcontractorTypeList"></select>&nbsp;&nbsp;
+				<label>Identifiant : </label>
+				<input type="text" id="identifier" />&nbsp;&nbsp;
+				<label>Type Identifiant : </label>
+				<select id="identifierType" data-ng-model="subcontractor.identifierType" data-ng-options = "it for it in identifierTypeList"></select>&nbsp;&nbsp;
+				
+				<h2>Lots</h2>
+				<span data-ng-repeat = "l in lotList">
+					<input type="checkbox" id="lot-{{ l.id }}" value="{{ l.id }}" data-ng-click="lot.check(l.id)"/> <label>{{ l.label }}</label>&nbsp;&nbsp;
+					<br data-ng-if="$index > 0 && $index % 3 == 0"/>
+				</span>
+			
+				<h2>Corps d'état</h2>
+				<span data-ng-repeat = "t in tradeList">
+					<span data-ng-show="showTradesOfLot[t.lot.id]">
+						<span data-ng-if="tradeList[$index].lot.label != tradeList[$index-1].lot.label" class="bg-info text-uppercase">
+						<b>{{ t.lot.label }}</b><br/>
+						</span>
+						<input type="checkbox" id="trade-{{ t.id }}" value="{{ t.id }}"> <label>{{ t.label }}</label>&nbsp;&nbsp;
+						<br data-ng-if="$index > 0 && $index % 3 == 0 && tradeList[$index-1].lot.label == tradeList[$index].lot.label"/>
+						<span data-ng-if="$index > 0 && tradeList[$index+1].lot.label != tradeList[$index].lot.label"><br/><br/></span>
+					</span>
+				</span>
+			</div>
 		
-		<h2>Lots</h2>
-		<span data-ng-repeat = "l in lotList">
-			<input type="checkbox" id="lot-{{ l.id }}" value="{{ l.id }}"> <label>{{ l.label }}</label>
-		</span>
-	
-		<h2>Corps d'état</h2>
-		<span data-ng-repeat = "t in tradeList">
-			<input type="checkbox" id="trade-{{ t.id }}" value="{{ t.id }}"> <label>{{ t.label }}</label>
-		</span>
+			<div id="contacts" class="tab-pane fade">
+				<h2>Contacts</h2>
+				<label>Nom : </label>
+				<input type="text" id="lastName" data-ng-model="ct.lastName"  />&nbsp;&nbsp;
+				<label>Prénom : </label>
+				<input type="text" id="firstName" data-ng-model="ct.firstName" />&nbsp;&nbsp;
+				<label>Fonction : </label>
+				<input type="text" id="job" data-ng-model="ct.job" />&nbsp;&nbsp;
+				<br /><br />
+				<label>Email : </label>
+				<input type="text" id="job" data-ng-model="ct.email" />&nbsp;&nbsp;
+				<label>Phone : </label>
+				<input type="text" id="phone" data-ng-model="ct.phone" />&nbsp;&nbsp;
+				<br /><br />
+				<button id="contactSaveBtn" data-ng-click="contact.add()" class="btn btn-primary">Enregitrer Contact</button>
+				<h3>Liste</h3>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="col-md-2 text-center">Nom</th>
+							<th class="col-md-2 text-center">Prénom</th>
+							<th class="col-md-2 text-center">Fonction</th>
+							<th class="col-md-1 text-center">Email</th>
+							<th class="col-md-1 text-center">Phone</th>
+							<th class="col-md-1 text-center"></th>
+							<th class="col-md-1 text-center"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat = "contact in subcontractor.contacts">
+							<td>{{ contact.lastName }}</td>
+							<td>{{ contact.firstName }}</td>
+							<td>{{ contact.job }}</td>
+							<td>{{ contact.email }}</td>
+							<td>{{ contact.phone }}</td>
+							<td><button class="btn btn-primary">Modifier</button></td>
+							<td><button class="btn btn-danger">Supprimer</button></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+				
+			<div id="ratings" class="tab-pane fade">
+				<h2>Notes</h2>
+				<label>Projet : </label>
+				<select id="ratingProject" data-ng-model="rt.project" data-ng-options="prj.name for prj in projectList"></select>&nbsp;&nbsp;
+				<label>Note : </label>
+				<input id="ratingStars" type="text" data-ng-model="rt.stars" size="3" />&nbsp;<b> / 5</b>
+				<br /><br />
+				<label>Commentaires : </label><br />
+				<textarea rows="3" cols="50" data-ng-model="rt.comments"></textarea>
+				<br /><br />
+				<button id="ratingSaveBtn" data-ng-click="rating.add()" class="btn btn-primary">Enregistrer Note</button>
+				<h3>Liste</h3>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="col-md-4 text-center">Projet</th>
+							<th class="col-md-2 text-center">Note</th>
+							<th class="col-md-4 text-center">Commentaires</th>
+							<th class="col-md-1 text-center"></th>
+							<th class="col-md-1 text-center"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-repeat = "projectRating in subcontractor.ratings">
+							<td>{{ projectRating.project.name }}</td>
+							<td>{{ projectRating.stars }}</td>
+							<td>{{ projectRating.comments }}</td>
+							<td><button class="btn btn-primary">Modifier</button></td>
+							<td><button class="btn btn-danger">Supprimer</button></td>
+						</tr>
+					</tbody>
+				</table>
+				<b>Note moyenne du sous-traitant : {{ avgRating }}</b>
+			</div>
+		</div>
+		
 		<br /><br />
-		<hr/>
+		<hr />
 
-		<h2>Contacts</h2>
-		<label>Nom : </label>
-		<input type="text" id="lastname" />
-		<label>Prénom : </label>
-		<input type="text" id="firstname" />
-		<label>Fonction : </label>
-		<input type="text" id="job" />
-		<br /><br />
-		
-		<label>Email : </label>
-		<input type="text" id="job" />
-		<label>Phone : </label>
-		<input type="text" id="phone" />
-		<br /><br />
-		
-		<input type="button" value="Enregitrer Contact" id="contactSaveBtn" />
-		<h3>Liste</h3>
-		<table class="table table-bordered table-striped">
-			<thead>
-				<tr>
-					<th class="text-center">Nom</th>
-					<th class="text-center">Prénom</th>
-					<th class="text-center">Fonction</th>
-					<th class="text-center">Email</th>
-					<th class="text-center">Phone</th>
-					<th class="text-center"></th>
-					<th class="text-center"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat = "contact in contactsList">
-					<td>{{ contact.lastname }}</td>
-					<td>{{ contact.firstname }}</td>
-					<td>{{ contact.fonction }}</td>
-					<td>{{ contact.email }}</td>
-					<td>{{ contact.phone }}</td>
-					<td><a href="">Modifier</a></td>
-					<td><a href="">Supprimer</a></td>
-				</tr>
-			</tbody>
-		</table>
-		<br /><br />
-		<hr />
-		
-		<h2>Projets et Notes</h2>
-		<label>Projet : </label>
-		<select id="projectName">
-			<!-- TODO options -->
-		</select>
-		<label>Note : </label>
-		<input id="ex1" data-slider-id='ex1Slider' type="text" 
-			data-slider-min="1" data-slider-max="5" data-slider-step="1" data-slider-value="3"/>
-		<br /><br />
-		<label>Commentaires : </label><br />
-		<textarea rows="5" cols="100"></textarea>
-		<br /><br />
-		<input type="button" value="Enregistrer Projet" id="projectRatingSaveBtn" />
-		<h3>Liste</h3>
-		<table class="table table-bordered table-striped">
-			<thead>
-				<tr>
-					<th class="text-center">Projet</th>
-					<th class="text-center">Note</th>
-					<th class="text-center">Commentaires</th>
-					<th class="text-center"></th>
-					<th class="text-center"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-ng-repeat = "projectRating in projectsRatingsList">
-					<td>{{ projectRating.name }}</td>
-					<td>{{ projectRating.rating }}</td>
-					<td>{{ projectRating.comments }}</td>
-					<td><a href="">Modifier</a></td>
-					<td><a href="">Supprimer</a></td>
-				</tr>
-			</tbody>
-		</table>
-		<p>Note moyenne du sous-traitant : {{ avgRating }} / 5</p>
-		<br /><br />
-		<hr />
-		
-		<input type="submit" value="Enregistrer Sous-Traitant" id="subcontractorSaveBtn" />
+		<button id="subcontractorSaveBtn" class="btn btn-success">Enregistrer Sous-Traitant</button>
 	</form>
 </div>

@@ -6,7 +6,7 @@
 		<label>Nom du projet : </label>
 		<input type="text" id="projectName" data-ng-model="prj.name" size="50" />
 		<input type="hidden" id="projectId" data-ng-model="prj.id" />
-		<input type="submit" value="Enregistrer" id="projectSaveBtn" data-ng-click="project.save()" />
+		<button id="projectSaveBtn" data-ng-click="project.save()" class="btn btn-success">Enregistrer</button>
 	</form>
 	<br />
 
@@ -14,16 +14,16 @@
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th class="text-center">Nom</th>
-				<th class="text-center"></th>
-				<th class="text-center"></th>
+				<th class="col-md-8 text-center">Nom</th>
+				<th class="col-md-1 text-center"></th>
+				<th class="col-md-1 text-center"></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr data-ng-repeat = "p in projectsList">
-				<td class="col-md-8">{{ p.name }}</td>
-				<td class="col-md-2"><a href="" data-ng-click="project.findById(p.id)">Modifier</a></td>
-				<td class="col-md-2"><a href="" data-ng-click="project.deleteProject(p.id)">Supprimer</a></td>
+				<td>{{ p.name }}</td>
+				<td><button data-ng-click="project.findById(p.id)" class="btn btn-primary">Modifier</button></td>
+				<td><button data-ng-click="project.deleteProject(p.id)" class='btn btn-danger'>Supprimer</button></td>
 			</tr>
 		</tbody>
 	</table>

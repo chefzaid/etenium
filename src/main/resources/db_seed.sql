@@ -34,7 +34,7 @@ INSERT INTO trade VALUES(14, 'Montage mobilier', 3);
 INSERT INTO trade VALUES(15, 'Faux plafond en plaque de plâtre', 4);
 INSERT INTO trade VALUES(16, 'Faux plafond staff', 4);
 INSERT INTO trade VALUES(17, 'Faux plafond modulaire', 4);
-INSERT INTO trade VALUES(18, 'cloison en plâtre', 4);
+INSERT INTO trade VALUES(18, 'Cloison en plâtre', 4);
 
 INSERT INTO trade VALUES(19, 'Irrigation', 5);
 INSERT INTO trade VALUES(20, 'Jardinage et plantation', 5);

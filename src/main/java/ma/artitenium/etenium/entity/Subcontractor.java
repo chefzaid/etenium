@@ -31,8 +31,6 @@ public class Subcontractor {
 	private SubcontractorType type;
 	@ManyToMany(cascade = CascadeType.MERGE)
 	private List<Trade> trades;
-	@ManyToMany(cascade = CascadeType.MERGE)
-	private List<Project> projects;
 	@OneToMany(cascade = CascadeType.MERGE)
 	private List<Contact> contacts;
 	@OneToMany(cascade = CascadeType.MERGE)
