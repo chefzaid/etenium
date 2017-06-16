@@ -1,6 +1,9 @@
 app.controller('SubcontractorController', [ '$scope', '$http', function($scope, $http) {
 
-	activateMenuItem();
+	activateMenuItem();	
+	$(document).ready(function(){
+	    $('[data-toggle="popover"]').popover(); 
+	});
 	
 	$scope.avgRating = "-";
 	$scope.showTradesOfLot = [];
@@ -10,16 +13,29 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 	$scope.lotList = [];
 	$scope.tradeList = [];
 	$scope.projectList = [];
-	
+
 	$scope.subcontractor = {
 		id : 0,
+		name : '',
 		type : '',
-		idenitifier : '',
+		identifier : '',
 		identifierType : '',
 		trades : [],
 		contacts : [],
-		ratings : []
+		ratings : [],
 		
+		save : function() {
+			for(var trade of $scope.tradeList){
+				if(trade.checked){
+					$scope.subcontractor.trades.push(trade);
+				}
+			}
+			$http.post(API_URL + '/subcontractor', $scope.subcontractor).
+	        then(function(response) {
+	        	//$scope.subcontractor.findAll();
+	        	$scope.subcontractor = {}; // Clear inputs
+	        });
+		},
 	};
 	
 	$scope.subcontractorType = {
@@ -27,6 +43,7 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 			$http.get(API_URL + '/subcontractor/type/all').
 	        then(function(response) {
 	            $scope.subcontractorTypeList = response.data;
+	            $('#subcontractorType').select2({ width: '200px' });
 	        });
 		}
 	};
@@ -36,6 +53,7 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 			$http.get(API_URL + '/subcontractor/identifierType/all').
 	        then(function(response) {
 	            $scope.identifierTypeList = response.data;
+	            $('#identifierType').select2({ width: '100px' });
 	        });
 		}
 	};
@@ -48,7 +66,7 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 	        });
 		},
 		check : function(id) {
-			$scope.showTradesOfLot[id] = true;
+			$scope.showTradesOfLot[id] = $scope.showTradesOfLot[id] ? !$scope.showTradesOfLot[id] : true;
 		}
 	};
 	
@@ -58,9 +76,6 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 	        then(function(response) {
 	            $scope.tradeList = response.data;
 	        });
-		},
-		add : function() {
-			$scope.subcontractor.trades.push($scope.trades);
 		}
 	};
 	
@@ -69,6 +84,7 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 			$http.get(API_URL + '/project/all').
 	        then(function(response) {
 	            $scope.projectList = response.data;
+	            $('#ratingProject').select2({ width: '400px' });
 	        });
 		}
 	};
@@ -77,6 +93,10 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 		add : function() {
 			var newContact = $.extend(true, {}, $scope.ct);
 			$scope.subcontractor.contacts.push(newContact);
+			$scope.ct = {};
+		},
+		remove : function(id) {
+			$scope.subcontractor.contacts.splice(index, 1);
 		}
 	};
 	
@@ -89,6 +109,10 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 				total += parseInt(rating.stars);
 			}
 			$scope.avgRating = total / $scope.subcontractor.ratings.length + " / 5";
+			$scope.rt = {};
+		},
+		remove : function(index) {
+			$scope.subcontractor.ratings.splice(index, 1);
 		}
 	};
 

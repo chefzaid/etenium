@@ -3,6 +3,7 @@ package ma.artitenium.etenium.rest;
 import java.util.Arrays;
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import ma.artitenium.etenium.entity.IdentifierType;
+import ma.artitenium.etenium.entity.Subcontractor;
 import ma.artitenium.etenium.entity.SubcontractorType;
 import ma.artitenium.etenium.service.SubcontractorService;
 
@@ -55,5 +57,12 @@ public class SubcontractorRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAll() {
 		return Response.ok().entity(subcontractorService.findAllSubcontractors()).build();
+	}
+	
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response saveSubcontractor(Subcontractor json) {
+		subcontractorService.saveSubcontractor(json);
+		return Response.ok().entity(null).build();
 	}
 }

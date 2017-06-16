@@ -10,17 +10,20 @@
 			<div id="general" class="tab-pane fade in active">
 				<h2>Sous-traitant</h2>
 				<label>Raison Sociale : </label>
-				<input type="text" id="subcontractorName" />&nbsp;&nbsp;
+				<input type="text" id="subcontractorName" data-ng-model="subcontractor.name" />&nbsp;&nbsp;
 				<label>Type : </label>
-				<select id="subcontractorType" data-ng-model="subcontractor.type" data-ng-options="st for st in subcontractorTypeList"></select>&nbsp;&nbsp;
+				<select id="subcontractorType" data-ng-model="subcontractor.type" 
+					data-ng-options="st for st in subcontractorTypeList"></select>&nbsp;&nbsp;
 				<label>Identifiant : </label>
-				<input type="text" id="identifier" />&nbsp;&nbsp;
+				<input type="text" id="identifier" data-ng-model="subcontractor.identifier" />&nbsp;&nbsp;
 				<label>Type Identifiant : </label>
-				<select id="identifierType" data-ng-model="subcontractor.identifierType" data-ng-options = "it for it in identifierTypeList"></select>&nbsp;&nbsp;
+				<select id="identifierType" data-ng-model="subcontractor.identifierType" 
+					data-ng-options="it for it in identifierTypeList"></select>&nbsp;&nbsp;
 				
 				<h2>Lots</h2>
 				<span data-ng-repeat = "l in lotList">
-					<input type="checkbox" id="lot-{{ l.id }}" value="{{ l.id }}" data-ng-click="lot.check(l.id)"/> <label>{{ l.label }}</label>&nbsp;&nbsp;
+					<input type="checkbox" id="lot-{{ l.id }}" 
+						value="{{ l.id }}" data-ng-click="lot.check(l.id)"/> <label>{{ l.label }}</label>&nbsp;&nbsp;
 					<br data-ng-if="$index > 0 && $index % 3 == 0"/>
 				</span>
 			
@@ -30,7 +33,8 @@
 						<span data-ng-if="tradeList[$index].lot.label != tradeList[$index-1].lot.label" class="bg-info text-uppercase">
 						<b>{{ t.lot.label }}</b><br/>
 						</span>
-						<input type="checkbox" id="trade-{{ t.id }}" value="{{ t.id }}"> <label>{{ t.label }}</label>&nbsp;&nbsp;
+						<input type="checkbox" id="trade-{{ t.id }}" 
+							value="{{ t.id }}" data-ng-model="t.checked"> <label>{{ t.label }}</label>&nbsp;&nbsp;
 						<br data-ng-if="$index > 0 && $index % 3 == 0 && tradeList[$index-1].lot.label == tradeList[$index].lot.label"/>
 						<span data-ng-if="$index > 0 && tradeList[$index+1].lot.label != tradeList[$index].lot.label"><br/><br/></span>
 					</span>
@@ -39,6 +43,7 @@
 		
 			<div id="contacts" class="tab-pane fade">
 				<h2>Contacts</h2>
+				<input type="hidden" id="contactId" data-ng-model="ct.id"  />
 				<label>Nom : </label>
 				<input type="text" id="lastName" data-ng-model="ct.lastName"  />&nbsp;&nbsp;
 				<label>Prénom : </label>
@@ -73,7 +78,7 @@
 							<td>{{ contact.email }}</td>
 							<td>{{ contact.phone }}</td>
 							<td><button class="btn btn-primary">Modifier</button></td>
-							<td><button class="btn btn-danger">Supprimer</button></td>
+							<td><button class="btn btn-danger" data-ng-click="contact.remove($index)">Supprimer</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -81,10 +86,11 @@
 				
 			<div id="ratings" class="tab-pane fade">
 				<h2>Notes</h2>
+				<input type="hidden" id="ratingId" data-ng-model="rt.id"  />
 				<label>Projet : </label>
 				<select id="ratingProject" data-ng-model="rt.project" data-ng-options="prj.name for prj in projectList"></select>&nbsp;&nbsp;
 				<label>Note : </label>
-				<input id="ratingStars" type="text" data-ng-model="rt.stars" size="3" />&nbsp;<b> / 5</b>
+				<input id="ratingStars" type="number" data-ng-model="rt.stars" size="3" min="1" max="5" />&nbsp;<b> / 5</b>
 				<br /><br />
 				<label>Commentaires : </label><br />
 				<textarea rows="3" cols="50" data-ng-model="rt.comments"></textarea>
@@ -107,7 +113,7 @@
 							<td>{{ projectRating.stars }}</td>
 							<td>{{ projectRating.comments }}</td>
 							<td><button class="btn btn-primary">Modifier</button></td>
-							<td><button class="btn btn-danger">Supprimer</button></td>
+							<td><button data-ng-click="rating.remove($index)" class="btn btn-danger">Supprimer</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -118,6 +124,8 @@
 		<br /><br />
 		<hr />
 
-		<button id="subcontractorSaveBtn" class="btn btn-success">Enregistrer Sous-Traitant</button>
+		<button id="subcontractorSaveBtn" class="btn btn-success" 
+			data-ng-click="subcontractor.save()" data-toggle="popover" data-trigger="focus" 
+			title="Succès" data-content="Sous-traitant ajouté avec succès !">Enregistrer Sous-Traitant</button>
 	</form>
 </div>

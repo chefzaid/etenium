@@ -13,6 +13,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import lombok.Data;
 
 @Data
@@ -30,9 +33,12 @@ public class Subcontractor {
 	@Enumerated(EnumType.STRING)
 	private SubcontractorType type;
 	@ManyToMany(cascade = CascadeType.MERGE)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Trade> trades;
 	@OneToMany(cascade = CascadeType.MERGE)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Contact> contacts;
 	@OneToMany(cascade = CascadeType.MERGE)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Rating> ratings;
 }

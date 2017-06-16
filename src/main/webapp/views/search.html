@@ -1,5 +1,65 @@
 
 <div data-ng-controller="SearchController">
-	<h1>Recherche</h1>
-	<br />
+	<h2>Recherche</h2>
+	<form id='searchForm'>
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#trades" target="_self">Par Corps d'état</a></li>
+			<li><a data-toggle="tab" href="#subcontractor" target="_self">Par Sous-traitant</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="trades" class="tab-pane fade in active">
+				<h2>Lots</h2>
+				<span data-ng-repeat = "l in lotList">
+					<input type="checkbox" id="lot-{{ l.id }}" 
+						value="{{ l.id }}" data-ng-click="lot.check(l.id)"/> <label>{{ l.label }}</label>&nbsp;&nbsp;
+					<br data-ng-if="$index > 0 && $index % 3 == 0"/>
+				</span>
+			
+				<h2>Corps d'état</h2>
+				<span data-ng-repeat = "t in tradeList">
+					<span data-ng-show="showTradesOfLot[t.lot.id]">
+						<span data-ng-if="tradeList[$index].lot.label != tradeList[$index-1].lot.label" class="bg-info text-uppercase">
+						<b>{{ t.lot.label }}</b><br/>
+						</span>
+						<input type="checkbox" id="trade-{{ t.id }}" 
+							value="{{ t.id }}" data-ng-model="t.checked"> <label>{{ t.label }}</label>&nbsp;&nbsp;
+						<br data-ng-if="$index > 0 && $index % 3 == 0 && tradeList[$index-1].lot.label == tradeList[$index].lot.label"/>
+						<span data-ng-if="$index > 0 && tradeList[$index+1].lot.label != tradeList[$index].lot.label"><br/><br/></span>
+					</span>
+				</span>
+			</div>
+		
+			<div id="subcontractor" class="tab-pane fade">
+				<h2>Sous-traitant</h2>
+				<label>Raison Sociale : </label>
+				<select id="subcontractors" size="50"
+					data-ng-model="search.subcontractor" data-ng-options="sb.name for sb in subcontractorList"></select>
+			</div>
+		</div>
+		<hr />
+
+		<button id="searchBtn" class="btn btn-success" 
+			data-ng-click="search()" data-toggle="popover" data-trigger="focus" 
+			title="Succès" data-content="Sous-traitant ajouté avec succès !">Rechercher</button>
+	</form>
+	
+	<h3>Résultat</h3>
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>
+				<th class="col-md-2 text-center">Sous-traitant</th>
+				<th class="col-md-2 text-center">Note moyenne</th>
+				<th class="col-md-1 text-center"></th>
+				<th class="col-md-1 text-center"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr data-ng-repeat = "result in searchResults">
+				<td>{{ result.subcontractor.name }}</td>
+				<td>{{ result.subcontractor.avgRating }}</td>
+				<td><button class="btn btn-primary">Visualiser / Modifier</button></td>
+				<td><button class="btn btn-danger" data-ng-click="contact.remove($index)">Supprimer</button></td>
+			</tr>
+		</tbody>
+	</table>
 </div>
