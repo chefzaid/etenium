@@ -1,10 +1,10 @@
 
 <div data-ng-controller="SearchController">
-	<h2>Recherche</h2>
+	<h1>Recherche</h1>
 	<form id='searchForm'>
 		<ul class="nav nav-tabs">
-			<li class="active"><a data-toggle="tab" href="#trades" target="_self">Par Corps d'état</a></li>
-			<li><a data-toggle="tab" href="#subcontractor" target="_self">Par Sous-traitant</a></li>
+			<li id="tabByTrades" class="active"><a data-toggle="tab" href="#trades" target="_self">Par Corps d'état</a></li>
+			<li id="tabBySubcontractor"><a data-toggle="tab" href="#subcontractor" target="_self">Par Sous-traitant</a></li>
 		</ul>
 		<div class="tab-content">
 			<div id="trades" class="tab-pane fade in active">
@@ -32,32 +32,36 @@
 			<div id="subcontractor" class="tab-pane fade">
 				<h2>Sous-traitant</h2>
 				<label>Raison Sociale : </label>
-				<select id="subcontractors" size="50"
+				<select id="subcontractors" size="50" data-width="400" 
 					data-ng-model="search.subcontractor" data-ng-options="sb.name for sb in subcontractorList"></select>
 			</div>
 		</div>
 		<hr />
 
-		<button id="searchBtn" class="btn btn-success" 
-			data-ng-click="search()" data-toggle="popover" data-trigger="focus" 
-			title="Succès" data-content="Sous-traitant ajouté avec succès !">Rechercher</button>
+		<button id="searchAllBtn" class="btn btn-primary" data-ng-click="subcontractor.findAll(true)">Afficher tous</button>
+		<button id="searchBtn" class="btn btn-success" data-ng-click="subcontractor.launchSearch()">Rechercher</button>
+		<button id="clearAllBtn" class="btn btn-warning" data-ng-click="subcontractor.reset()">Réinitialiser</button>
 	</form>
 	
 	<h3>Résultat</h3>
 	<table class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th class="col-md-2 text-center">Sous-traitant</th>
-				<th class="col-md-2 text-center">Note moyenne</th>
+				<th class="col-md-3 text-center">Sous-traitant</th>
+				<th class="col-md-4 text-center">Corps d'état</th>
+				<th class="col-md-1 text-center">Moyenne</th>
 				<th class="col-md-1 text-center"></th>
 				<th class="col-md-1 text-center"></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr data-ng-repeat = "result in searchResults">
-				<td>{{ result.subcontractor.name }}</td>
-				<td>{{ result.subcontractor.avgRating }}</td>
-				<td><button class="btn btn-primary">Visualiser / Modifier</button></td>
+				<td>{{ result.name }}</td>
+				<td><ul class="list-unstyled">
+					<li data-ng-repeat="t in result.trades">{{ t.label }}</li>
+				</ul></td>
+				<td>{{ result.avgRating }}</td>
+				<td><button class="btn btn-primary">Modifier</button></td>
 				<td><button class="btn btn-danger" data-ng-click="contact.remove($index)">Supprimer</button></td>
 			</tr>
 		</tbody>

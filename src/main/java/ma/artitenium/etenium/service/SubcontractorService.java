@@ -1,51 +1,53 @@
 package ma.artitenium.etenium.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import lombok.extern.apachecommons.CommonsLog;
-import ma.artitenium.etenium.dao.ContactDao;
-import ma.artitenium.etenium.dao.LotDao;
 import ma.artitenium.etenium.dao.SubcontractorDao;
-import ma.artitenium.etenium.dao.TradeDao;
-import ma.artitenium.etenium.entity.Contact;
-import ma.artitenium.etenium.entity.Lot;
-import ma.artitenium.etenium.entity.Project;
 import ma.artitenium.etenium.entity.Subcontractor;
-import ma.artitenium.etenium.entity.Trade;
 
 @CommonsLog
 @Service
 public class SubcontractorService {
 
 	@Autowired
-	private LotDao lotDao;
-	@Autowired
-	private TradeDao tradeDao;
-	@Autowired
 	private SubcontractorDao subcontractorDao;
-	
-	public List<Lot> findAllLots() {
-		return (List<Lot>) lotDao.findAll();
-	}
 
-	public List<Trade> findAllTrades() {
-		return (List<Trade>) tradeDao.findAll();
-	}
-	
-	public List<Subcontractor> findAllSubcontractors() {
+	public List<Subcontractor> findAll() {
 		log.debug("................");
 		return (List<Subcontractor>) subcontractorDao.findAll();
 	}
-	
-	public void saveSubcontractor(Subcontractor entity){
+
+	public void save(Subcontractor entity) {
 		subcontractorDao.save(entity);
 	}
-	
-	public void deleteSubcontractor(Integer id){
+
+	public void delete(Integer id) {
 		Subcontractor entity = subcontractorDao.findOne(id);
 		subcontractorDao.delete(entity);
+	}
+
+	public List<Subcontractor> findByTrades(String tradesIds) {
+		String[] idsArray = tradesIds.split(",");
+		List<Integer> ids = new ArrayList<>();
+		for (String str : idsArray) {
+			if (!StringUtils.isEmpty(str)) {
+				ids.add(Integer.parseInt(str));
+			}
+		}
+		return subcontractorDao.findByTrades(ids);
+	}
+
+	public Subcontractor findById(Integer id) {
+		return subcontractorDao.findOne(id);
+	}
+
+	public Subcontractor findByName(String name) {
+		return subcontractorDao.findByName(name);
 	}
 }

@@ -43,7 +43,7 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 			$http.get(API_URL + '/subcontractor/type/all').
 	        then(function(response) {
 	            $scope.subcontractorTypeList = response.data;
-	            $('#subcontractorType').select2({ width: '200px' });
+	            $('#subcontractorType').select2();
 	        });
 		}
 	};
@@ -53,14 +53,14 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 			$http.get(API_URL + '/subcontractor/identifierType/all').
 	        then(function(response) {
 	            $scope.identifierTypeList = response.data;
-	            $('#identifierType').select2({ width: '100px' });
+	            $('#identifierType').select2();
 	        });
 		}
 	};
 	
 	$scope.lot = {
 		findAll : function() {
-			$http.get(API_URL + '/subcontractor/lot/all').
+			$http.get(API_URL + '/lot/all').
 	        then(function(response) {
 	            $scope.lotList = response.data;
 	        });
@@ -72,7 +72,7 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 	
 	$scope.trade = {
 		findAll : function() {
-			$http.get(API_URL + '/subcontractor/trade/all').
+			$http.get(API_URL + '/trade/all').
 	        then(function(response) {
 	            $scope.tradeList = response.data;
 	        });
@@ -84,35 +84,49 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 			$http.get(API_URL + '/project/all').
 	        then(function(response) {
 	            $scope.projectList = response.data;
-	            $('#ratingProject').select2({ width: '400px' });
+	            $('#ratingProject').select2();
 	        });
 		}
 	};
 	
 	$scope.contact = {
-		add : function() {
+		save : function() {
 			var newContact = $.extend(true, {}, $scope.ct);
-			$scope.subcontractor.contacts.push(newContact);
+			if(newContact.index >= 0){
+				$scope.subcontractor.contacts[newContact.index] = newContact;
+			}else{
+				$scope.subcontractor.contacts.push(newContact);	
+			}
 			$scope.ct = {};
 		},
-		remove : function(id) {
+		remove : function(index) {
 			$scope.subcontractor.contacts.splice(index, 1);
+		},
+		modify : function(index) {
+			var newContact = $.extend(true, {}, $scope.subcontractor.contacts[index]);
+			$scope.ct = newContact;
+			$scope.ct.index = index;
 		}
 	};
 	
 	$scope.rating = {
-		add : function() {
+		save : function() {
 			var newRating = $.extend(true, {}, $scope.rt);
-			$scope.subcontractor.ratings.push(newRating);
-			var total = 0;
-			for(var rating of $scope.subcontractor.ratings){
-				total += parseInt(rating.stars);
+			if(newRating.index >= 0){
+				$scope.subcontractor.ratings[newRating.index] = newRating;
+			}else{
+				$scope.subcontractor.ratings.push(newRating);	
 			}
-			$scope.avgRating = total / $scope.subcontractor.ratings.length + " / 5";
 			$scope.rt = {};
+			$scope.avgRating = computeAverage($scope.subcontractor.ratings);
 		},
 		remove : function(index) {
 			$scope.subcontractor.ratings.splice(index, 1);
+		},
+		modify : function(index) {
+			var newRating = $.extend(true, {}, $scope.subcontractor.ratings[index]);
+			$scope.rt = newRating;
+			$scope.rt.index = index;
 		}
 	};
 

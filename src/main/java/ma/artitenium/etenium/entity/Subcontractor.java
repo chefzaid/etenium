@@ -3,6 +3,7 @@ package ma.artitenium.etenium.entity;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,6 +26,7 @@ public class Subcontractor {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	@NotNull
+	@Column(unique = true)
 	private String name;
 	@NotNull
 	private String identifier;

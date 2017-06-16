@@ -9,16 +9,18 @@
 		<div class="tab-content">
 			<div id="general" class="tab-pane fade in active">
 				<h2>Sous-traitant</h2>
+				<br />
 				<label>Raison Sociale : </label>
 				<input type="text" id="subcontractorName" data-ng-model="subcontractor.name" />&nbsp;&nbsp;
 				<label>Type : </label>
-				<select id="subcontractorType" data-ng-model="subcontractor.type" 
+				<select id="subcontractorType" data-ng-model="subcontractor.type" data-width="200"
 					data-ng-options="st for st in subcontractorTypeList"></select>&nbsp;&nbsp;
 				<label>Identifiant : </label>
 				<input type="text" id="identifier" data-ng-model="subcontractor.identifier" />&nbsp;&nbsp;
 				<label>Type Identifiant : </label>
-				<select id="identifierType" data-ng-model="subcontractor.identifierType" 
+				<select id="identifierType" data-ng-model="subcontractor.identifierType" data-width="100" 
 					data-ng-options="it for it in identifierTypeList"></select>&nbsp;&nbsp;
+				<br />
 				
 				<h2>Lots</h2>
 				<span data-ng-repeat = "l in lotList">
@@ -26,7 +28,8 @@
 						value="{{ l.id }}" data-ng-click="lot.check(l.id)"/> <label>{{ l.label }}</label>&nbsp;&nbsp;
 					<br data-ng-if="$index > 0 && $index % 3 == 0"/>
 				</span>
-			
+				<br />
+				
 				<h2>Corps d'état</h2>
 				<span data-ng-repeat = "t in tradeList">
 					<span data-ng-show="showTradesOfLot[t.lot.id]">
@@ -43,9 +46,10 @@
 		
 			<div id="contacts" class="tab-pane fade">
 				<h2>Contacts</h2>
+				<br />
 				<input type="hidden" id="contactId" data-ng-model="ct.id"  />
 				<label>Nom : </label>
-				<input type="text" id="lastName" data-ng-model="ct.lastName"  />&nbsp;&nbsp;
+				<input type="text" id="lastName" data-ng-model="ct.lastName" />&nbsp;&nbsp;
 				<label>Prénom : </label>
 				<input type="text" id="firstName" data-ng-model="ct.firstName" />&nbsp;&nbsp;
 				<label>Fonction : </label>
@@ -56,7 +60,7 @@
 				<label>Phone : </label>
 				<input type="text" id="phone" data-ng-model="ct.phone" />&nbsp;&nbsp;
 				<br /><br />
-				<button id="contactSaveBtn" data-ng-click="contact.add()" class="btn btn-primary">Enregitrer Contact</button>
+				<button id="contactSaveBtn" data-ng-click="contact.save()" class="btn btn-primary">Enregitrer Contact</button>
 				<h3>Liste</h3>
 				<table class="table table-bordered table-striped">
 					<thead>
@@ -71,14 +75,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr data-ng-repeat = "contact in subcontractor.contacts">
-							<td>{{ contact.lastName }}</td>
-							<td>{{ contact.firstName }}</td>
-							<td>{{ contact.job }}</td>
-							<td>{{ contact.email }}</td>
-							<td>{{ contact.phone }}</td>
-							<td><button class="btn btn-primary">Modifier</button></td>
-							<td><button class="btn btn-danger" data-ng-click="contact.remove($index)">Supprimer</button></td>
+						<tr data-ng-repeat = "c in subcontractor.contacts">
+							<td>{{ c.lastName }}</td>
+							<td>{{ c.firstName }}</td>
+							<td>{{ c.job }}</td>
+							<td>{{ c.email }}</td>
+							<td>{{ c.phone }}</td>
+							<td><button data-ng-click="contact.modify($index)" class="btn btn-primary">Modifier</button></td>
+							<td><button data-ng-click="contact.remove($index)" class="btn btn-danger">Supprimer</button></td>
 						</tr>
 					</tbody>
 				</table>
@@ -86,16 +90,18 @@
 				
 			<div id="ratings" class="tab-pane fade">
 				<h2>Notes</h2>
+				<br />
 				<input type="hidden" id="ratingId" data-ng-model="rt.id"  />
 				<label>Projet : </label>
-				<select id="ratingProject" data-ng-model="rt.project" data-ng-options="prj.name for prj in projectList"></select>&nbsp;&nbsp;
+				<select id="ratingProject" data-ng-model="rt.project" data-width="400" 
+					data-ng-options="prj.name for prj in projectList"></select>&nbsp;&nbsp;
 				<label>Note : </label>
 				<input id="ratingStars" type="number" data-ng-model="rt.stars" size="3" min="1" max="5" />&nbsp;<b> / 5</b>
 				<br /><br />
 				<label>Commentaires : </label><br />
 				<textarea rows="3" cols="50" data-ng-model="rt.comments"></textarea>
 				<br /><br />
-				<button id="ratingSaveBtn" data-ng-click="rating.add()" class="btn btn-primary">Enregistrer Note</button>
+				<button id="ratingSaveBtn" data-ng-click="rating.save()" class="btn btn-primary">Enregistrer Note</button>
 				<h3>Liste</h3>
 				<table class="table table-bordered table-striped">
 					<thead>
@@ -108,11 +114,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr data-ng-repeat = "projectRating in subcontractor.ratings">
-							<td>{{ projectRating.project.name }}</td>
-							<td>{{ projectRating.stars }}</td>
-							<td>{{ projectRating.comments }}</td>
-							<td><button class="btn btn-primary">Modifier</button></td>
+						<tr data-ng-repeat = "r in subcontractor.ratings">
+							<td>{{ r.project.name }}</td>
+							<td>{{ r.stars }}</td>
+							<td>{{ r.comments }}</td>
+							<td><button data-ng-click="rating.modify($index)" class="btn btn-primary">Modifier</button></td>
 							<td><button data-ng-click="rating.remove($index)" class="btn btn-danger">Supprimer</button></td>
 						</tr>
 					</tbody>
@@ -126,6 +132,6 @@
 
 		<button id="subcontractorSaveBtn" class="btn btn-success" 
 			data-ng-click="subcontractor.save()" data-toggle="popover" data-trigger="focus" 
-			title="Succès" data-content="Sous-traitant ajouté avec succès !">Enregistrer Sous-Traitant</button>
+			title="Succès" data-content="Sous-traitant sauvegardé avec succès !">Enregistrer Sous-Traitant</button>
 	</form>
 </div>

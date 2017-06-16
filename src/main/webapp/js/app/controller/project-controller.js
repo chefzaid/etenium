@@ -17,13 +17,10 @@ app.controller('ProjectController', [ '$scope', '$http', function($scope, $http)
 	        });
 		},
 		save : function() {
-			var data = {
-				id: $scope.prj.id,
-				name: $scope.prj.name
-			};
-			$http.post(API_URL + '/project', data).
+			$http.post(API_URL + '/project', $scope.prj).
 	        then(function(response) {
 	        	$scope.project.findAll();
+	        	$scope.prj = {};
 	        });
 		},
 		deleteProject : function(id) {

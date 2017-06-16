@@ -16,7 +16,7 @@ app.config(function($routeProvider) {
 		controller : 'SearchController'
 	}).
 	otherwise({
-		redirectTo : '/subcontractors'
+		redirectTo : '/search'
 	});
 });
 

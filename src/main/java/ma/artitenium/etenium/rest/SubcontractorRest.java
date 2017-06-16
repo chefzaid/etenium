@@ -5,6 +5,7 @@ import java.util.Arrays;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -37,32 +38,39 @@ public class SubcontractorRest {
 	public Response findAllIdentifierType() {
 		return Response.ok().entity(Arrays.asList(IdentifierType.values())).build();
 	}
-	
-	@GET
-	@Path("/lot/all")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findAllLot() {
-		return Response.ok().entity(subcontractorService.findAllLots()).build();
-	}
-	
-	@GET
-	@Path("/trade/all")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Response findAllTrade() {
-		return Response.ok().entity(subcontractorService.findAllTrades()).build();
-	}
 
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findAll() {
-		return Response.ok().entity(subcontractorService.findAllSubcontractors()).build();
+		return Response.ok().entity(subcontractorService.findAll()).build();
 	}
 	
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response saveSubcontractor(Subcontractor json) {
-		subcontractorService.saveSubcontractor(json);
+		subcontractorService.save(json);
 		return Response.ok().entity(null).build();
+	}
+	
+	@GET
+	@Path("/trades/{ids}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findByTrades(@PathParam("ids") String tradesIds) {
+		return Response.ok().entity(subcontractorService.findByTrades(tradesIds)).build();
+	}
+	
+	@GET
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findById(@PathParam("id") Integer id) {
+		return Response.ok().entity(subcontractorService.findById(id)).build();
+	}
+	
+	@GET
+	@Path("/name/{name}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response findById(@PathParam("name") String name) {
+		return Response.ok().entity(subcontractorService.findByName(name)).build();
 	}
 }
