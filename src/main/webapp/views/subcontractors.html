@@ -24,7 +24,7 @@
 				
 				<h2>Lots</h2>
 				<span data-ng-repeat = "l in lotList">
-					<input type="checkbox" id="lot-{{ l.id }}" 
+					<input type="checkbox" id="lot-{{ l.id }}" data-ng-checked="l.checked"
 						value="{{ l.id }}" data-ng-click="lot.check(l.id)"/> <label>{{ l.label }}</label>&nbsp;&nbsp;
 					<br data-ng-if="$index > 0 && $index % 3 == 0"/>
 				</span>
@@ -36,7 +36,7 @@
 						<span data-ng-if="tradeList[$index].lot.label != tradeList[$index-1].lot.label" class="bg-info text-uppercase">
 						<b>{{ t.lot.label }}</b><br/>
 						</span>
-						<input type="checkbox" id="trade-{{ t.id }}" 
+						<input type="checkbox" id="trade-{{ t.id }}" data-ng-checked="t.checked" 
 							value="{{ t.id }}" data-ng-model="t.checked"> <label>{{ t.label }}</label>&nbsp;&nbsp;
 						<br data-ng-if="$index > 0 && $index % 3 == 0 && tradeList[$index-1].lot.label == tradeList[$index].lot.label"/>
 						<span data-ng-if="$index > 0 && tradeList[$index+1].lot.label != tradeList[$index].lot.label"><br/><br/></span>

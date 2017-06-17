@@ -1,4 +1,4 @@
-app.controller('ProjectController', [ '$scope', '$http', function($scope, $http) {
+app.controller('ProjectController', function($scope, $http) {
 	
 	activateMenuItem();
 	
@@ -32,4 +32,4 @@ app.controller('ProjectController', [ '$scope', '$http', function($scope, $http)
 	};
 	
 	$scope.project.findAll();
-} ]);
+});

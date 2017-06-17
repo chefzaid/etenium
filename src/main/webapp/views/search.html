@@ -58,11 +58,11 @@
 			<tr data-ng-repeat = "result in searchResults">
 				<td>{{ result.name }}</td>
 				<td><ul class="list-unstyled">
-					<li data-ng-repeat="t in result.trades">{{ t.label }}</li>
+					<li data-ng-repeat="t in result.trades" data-ng-class="{'text-bold': t.makeBold}">{{ t.label }}</li>
 				</ul></td>
 				<td>{{ result.avgRating }}</td>
-				<td><button class="btn btn-primary">Modifier</button></td>
-				<td><button class="btn btn-danger" data-ng-click="contact.remove($index)">Supprimer</button></td>
+				<td><button class="btn btn-primary" data-ng-click="subcontractor.modify($index)">Modifier</button></td>
+				<td><button class="btn btn-danger" data-ng-click="subcontractor.remove($index)">Supprimer</button></td>
 			</tr>
 		</tbody>
 	</table>

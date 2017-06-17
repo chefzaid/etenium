@@ -1,4 +1,4 @@
-app.controller('SubcontractorController', [ '$scope', '$http', function($scope, $http) {
+app.controller('SubcontractorController', function($scope, $http, $routeParams) {
 
 	activateMenuItem();	
 	$(document).ready(function(){
@@ -24,6 +24,42 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 		contacts : [],
 		ratings : [],
 		
+		findById : function() {
+			$http.get(API_URL + '/subcontractor/' + $routeParams.id).
+	        then(function(response) {
+	        	var sc = $.extend(true, {}, response.data);
+	        	$scope.subcontractor = sc;
+	        	
+	        	// Check lots
+	        	var checkedLotsIds = [];
+	        	for(var trade of $scope.subcontractor.trades){
+	        		if(checkedLotsIds.indexOf(trade.lot.id) < 0){
+	        			for(var i=0; i<$scope.lotList.length; i++){
+		        			if(trade.lot.id == $scope.lotList[i].id){
+		        				$scope.lotList[i].checked = true;
+		        				break;
+		        			}
+		        		}
+		        		$scope.lot.check(trade.lot.id);
+	        		}
+	        	}
+	        	
+	        	// Check trades
+	        	var checkedTradesIds = [];
+	        	for(var trade of $scope.subcontractor.trades){
+	        		if(checkedTradesIds.indexOf(trade.id) < 0){
+	        			for(var i=0; i<$scope.tradeList.length; i++){
+		        			if(trade.id == $scope.tradeList[i].id){
+		        				$scope.tradeList[i].checked = true;
+		        				break;
+		        			}
+		        		}
+	        		}
+	        	}
+	        	
+	        	$scope.avgRating = computeAverage($scope.subcontractor.ratings);
+	        });
+		},
 		save : function() {
 			for(var trade of $scope.tradeList){
 				if(trade.checked){
@@ -32,10 +68,9 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 			}
 			$http.post(API_URL + '/subcontractor', $scope.subcontractor).
 	        then(function(response) {
-	        	//$scope.subcontractor.findAll();
 	        	$scope.subcontractor = {}; // Clear inputs
 	        });
-		},
+		}
 	};
 	
 	$scope.subcontractorType = {
@@ -136,4 +171,7 @@ app.controller('SubcontractorController', [ '$scope', '$http', function($scope, 
 	$scope.trade.findAll();
 	$scope.project.findAll();
 
-} ]);
+	if($routeParams.id >= 0){
+		$scope.subcontractor.findById();
+	}
+});

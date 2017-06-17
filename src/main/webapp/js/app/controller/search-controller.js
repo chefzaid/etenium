@@ -1,4 +1,4 @@
-app.controller('SearchController', [ '$scope', '$http', function($scope, $http) {
+app.controller('SearchController', function($scope, $http) {
 
 	activateMenuItem();
 	$('#subcontractors').select2();
@@ -64,17 +64,24 @@ app.controller('SearchController', [ '$scope', '$http', function($scope, $http) 
 	        then(function(response) {
 	        	$scope.searchResults = [];
 	        	for(item of response.data){
-	        		$scope.subcontractor.buildSearchResult(item);
+	        		var result = $scope.subcontractor.buildSearchResult(item);
+	        		for(var i=0; i<result.trades.length; i++){
+	        			if(tradesIds.indexOf(result.trades[i].id) >= 0){
+	        				result.trades[i].makeBold = true;	
+		        		}	
+	        		}
 	        	}
 	        });	
 		},
 		buildSearchResult : function(item) {
 			var result = {
+				id : item.id,
 				name : item.name,
 				trades : item.trades,
 				avgRating : computeAverage(item.ratings)
 			};
         	$scope.searchResults.push(result);
+        	return $scope.searchResults[$scope.searchResults.length-1];
 		},
 		launchSearch : function() {
 			var activeTab = $('.nav-tabs .active')[0].id;
@@ -87,6 +94,18 @@ app.controller('SearchController', [ '$scope', '$http', function($scope, $http) 
 		reset : function() {
 			$scope.searchResults = [];
 			$('#searchForm')[0].reset()
+		},
+		remove : function(index) {
+			$scope.searchResults.splice(index, 1);
+			var id = $scope.subcontractorList[index].id;
+			$http.delete(API_URL + '/subcontractor/' + id).
+	        then(function(response) {
+	        	$scope.subcontractor.findAll();
+	        });
+		},
+		modify : function(index) {
+			var id = $scope.subcontractorList[index].id;
+			window.location = BASE_URL + "/?#!/subcontractors/" + id;
 		}
 	};
 	
@@ -94,4 +113,4 @@ app.controller('SearchController', [ '$scope', '$http', function($scope, $http) 
 	$scope.trade.findAll();
 	$scope.subcontractor.findAll();
 	
-} ]);
+});

@@ -2,6 +2,7 @@ package ma.artitenium.etenium.rest;
 
 import java.util.Arrays;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -72,5 +73,13 @@ public class SubcontractorRest {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response findById(@PathParam("name") String name) {
 		return Response.ok().entity(subcontractorService.findByName(name)).build();
+	}
+	
+	@DELETE
+	@Path("/{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response delete(@PathParam("id") Integer id) {
+		subcontractorService.delete(id);
+		return Response.ok().entity(null).build();
 	}
 }

@@ -4,16 +4,16 @@ app.config(function($routeProvider) {
 	$routeProvider.
 	// Main routes
 	when('/subcontractors', {
-		templateUrl : 'views/subcontractors.html',
-		controller : 'SubcontractorController'
+		templateUrl : 'views/subcontractors.html'
+	}).
+	when('/subcontractors/:id', {
+		templateUrl : 'views/subcontractors.html'
 	}).
 	when('/projects', {
-		templateUrl : 'views/projects.html',
-		controller : 'ProjectController'
+		templateUrl : 'views/projects.html'
 	}).
 	when('/search', {
-		templateUrl : 'views/search.html',
-		controller : 'SearchController'
+		templateUrl : 'views/search.html'
 	}).
 	otherwise({
 		redirectTo : '/search'
