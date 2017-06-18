@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 12 Juin 2017 à 20:01
+-- Généré le :  Dim 18 Juin 2017 à 17:56
 -- Version du serveur :  10.1.21-MariaDB
 -- Version de PHP :  5.6.30
 
@@ -109,17 +109,6 @@ CREATE TABLE `subcontractor_contacts` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `subcontractor_projects`
---
-
-CREATE TABLE `subcontractor_projects` (
-  `subcontractor_id` int(11) NOT NULL,
-  `projects_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `subcontractor_ratings`
 --
 
@@ -191,7 +180,8 @@ ALTER TABLE `rating`
 -- Index pour la table `subcontractor`
 --
 ALTER TABLE `subcontractor`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `UK_ifwdj9wdns5q65jdtuslo57ky` (`name`);
 
 --
 -- Index pour la table `subcontractor_contacts`
@@ -199,13 +189,6 @@ ALTER TABLE `subcontractor`
 ALTER TABLE `subcontractor_contacts`
   ADD UNIQUE KEY `UK_dd63q0efek2gyuo1b97nqjhj4` (`contacts_id`),
   ADD KEY `FKekb9wn7rdffbhauirwd8r4hq0` (`subcontractor_id`);
-
---
--- Index pour la table `subcontractor_projects`
---
-ALTER TABLE `subcontractor_projects`
-  ADD KEY `FK2ue3lefevigf7t9kktav95lwj` (`projects_id`),
-  ADD KEY `FKovso72laf5iqaljtpbvka4gm5` (`subcontractor_id`);
 
 --
 -- Index pour la table `subcontractor_ratings`
@@ -285,13 +268,6 @@ ALTER TABLE `rating`
 ALTER TABLE `subcontractor_contacts`
   ADD CONSTRAINT `FK1chewd6tv18skuis8hxllydm0` FOREIGN KEY (`contacts_id`) REFERENCES `contact` (`id`),
   ADD CONSTRAINT `FKekb9wn7rdffbhauirwd8r4hq0` FOREIGN KEY (`subcontractor_id`) REFERENCES `subcontractor` (`id`);
-
---
--- Contraintes pour la table `subcontractor_projects`
---
-ALTER TABLE `subcontractor_projects`
-  ADD CONSTRAINT `FK2ue3lefevigf7t9kktav95lwj` FOREIGN KEY (`projects_id`) REFERENCES `project` (`id`),
-  ADD CONSTRAINT `FKovso72laf5iqaljtpbvka4gm5` FOREIGN KEY (`subcontractor_id`) REFERENCES `subcontractor` (`id`);
 
 --
 -- Contraintes pour la table `subcontractor_ratings`

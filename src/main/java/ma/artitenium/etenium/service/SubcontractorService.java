@@ -19,7 +19,6 @@ public class SubcontractorService {
 	private SubcontractorDao subcontractorDao;
 
 	public List<Subcontractor> findAll() {
-		log.debug("................");
 		return (List<Subcontractor>) subcontractorDao.findAll();
 	}
 
@@ -33,6 +32,7 @@ public class SubcontractorService {
 	}
 
 	public List<Subcontractor> findByTrades(String tradesIds) {
+		log.debug("findByTrades - " + tradesIds);
 		String[] idsArray = tradesIds.split(",");
 		List<Integer> ids = new ArrayList<>();
 		for (String str : idsArray) {

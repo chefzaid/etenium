@@ -5,8 +5,7 @@
 
 	<groupId>ma.artitenium</groupId>
 	<artifactId>etenium</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<version>1.0.0</version>
 
 	<name>etenium</name>
 	<description>Application de gestion des sous-traitants</description>

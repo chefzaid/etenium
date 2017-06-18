@@ -93,7 +93,8 @@ app.controller('SearchController', function($scope, $http) {
 		},
 		reset : function() {
 			$scope.searchResults = [];
-			$('#searchForm')[0].reset()
+			$('#searchForm')[0].reset();
+			$('#subcontractors').trigger('change');
 		},
 		remove : function(index) {
 			$scope.searchResults.splice(index, 1);

@@ -94,7 +94,7 @@
 				<input type="hidden" id="ratingId" data-ng-model="rt.id"  />
 				<label>Projet : </label>
 				<select id="ratingProject" data-ng-model="rt.project" data-width="400" 
-					data-ng-options="prj.name for prj in projectList"></select>&nbsp;&nbsp;
+					data-ng-options="prj.name for prj in projectList track by prj.id"></select>&nbsp;&nbsp;
 				<label>Note : </label>
 				<input id="ratingStars" type="number" data-ng-model="rt.stars" size="3" min="1" max="5" />&nbsp;<b> / 5</b>
 				<br /><br />

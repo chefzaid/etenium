@@ -10,3 +10,7 @@ body {
 .text-bold {
 	font-weight: bold;
 }
+
+.select2-selection {
+	text-align: left! important;
+}

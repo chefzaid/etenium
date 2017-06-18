@@ -5,11 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.apachecommons.CommonsLog;
 import ma.artitenium.etenium.dao.ProjectDao;
 import ma.artitenium.etenium.entity.Project;
 
-@CommonsLog
 @Service
 public class ProjectService {
 
@@ -29,7 +27,6 @@ public class ProjectService {
 	}
 
 	public void save(Project entity) {
-		log.debug("saving......");
 		projectDao.save(entity);
 	}
 	

@@ -162,6 +162,7 @@ app.controller('SubcontractorController', function($scope, $http, $routeParams) 
 			var newRating = $.extend(true, {}, $scope.subcontractor.ratings[index]);
 			$scope.rt = newRating;
 			$scope.rt.index = index;
+			$scope.project.findAll(); // Needed along with "track by prj.id" in ng-options for it to work
 		}
 	};
 
