@@ -1,4 +1,4 @@
-app.controller('SubcontractorController', function($scope, $http, $routeParams) {
+app.controller('SubcontractorController', function($scope, $http, $timeout, $routeParams) {
 
 	activateMenuItem();	
 	$(document).ready(function(){
@@ -22,41 +22,39 @@ app.controller('SubcontractorController', function($scope, $http, $routeParams) 
 		identifierType : '',
 		trades : [],
 		contacts : [],
-		ratings : [],
-		
+		ratings : []
+	};
+	
+	$scope.subcontractors = {
 		findById : function() {
 			$http.get(API_URL + '/subcontractor/' + $routeParams.id).
 	        then(function(response) {
 	        	var sc = $.extend(true, {}, response.data);
 	        	$scope.subcontractor = sc;
 	        	
-	        	// Check lots
-	        	var checkedLotsIds = [];
-	        	for(var trade of $scope.subcontractor.trades){
-	        		if(checkedLotsIds.indexOf(trade.lot.id) < 0){
-	        			for(var i=0; i<$scope.lotList.length; i++){
+	        	$timeout(function(){
+		        	for(var trade of $scope.subcontractor.trades){
+		        		// Check lots
+		        		for(var i=0; i<$scope.lotList.length; i++){
 		        			if(trade.lot.id == $scope.lotList[i].id){
 		        				$scope.lotList[i].checked = true;
 		        				break;
 		        			}
 		        		}
-		        		$scope.lot.check(trade.lot.id);
-	        		}
-	        	}
-	        	
-	        	// Check trades
-	        	var checkedTradesIds = [];
-	        	for(var trade of $scope.subcontractor.trades){
-	        		if(checkedTradesIds.indexOf(trade.id) < 0){
+		        		if(!$scope.showTradesOfLot[trade.lot.id]){
+		        			$scope.lot.check(trade.lot.id);      			
+		        		}
+		        		
+	        			// Check trades
 	        			for(var i=0; i<$scope.tradeList.length; i++){
 		        			if(trade.id == $scope.tradeList[i].id){
 		        				$scope.tradeList[i].checked = true;
 		        				break;
 		        			}
 		        		}
-	        		}
-	        	}
-	        	
+		        	}		
+	        	}, 100); // To wait for the tradeList REST loading
+
 	        	$scope.avgRating = computeAverage($scope.subcontractor.ratings);
 	        });
 		},
@@ -68,7 +66,10 @@ app.controller('SubcontractorController', function($scope, $http, $routeParams) 
 			}
 			$http.post(API_URL + '/subcontractor', $scope.subcontractor).
 	        then(function(response) {
-	        	$scope.subcontractor = {}; // Clear inputs
+	        	if($routeParams.id < 0){
+	        		$scope.subcontractor = {};
+		        	$('#subcontractorForm')[0].reset();	
+	        	}
 	        });
 		}
 	};
@@ -173,6 +174,7 @@ app.controller('SubcontractorController', function($scope, $http, $routeParams) 
 	$scope.project.findAll();
 
 	if($routeParams.id >= 0){
-		$scope.subcontractor.findById();
+		$scope.subcontractors.findById();
 	}
+	
 });

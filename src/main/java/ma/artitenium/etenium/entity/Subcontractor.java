@@ -34,7 +34,7 @@ public class Subcontractor {
 	private IdentifierType identifierType;
 	@Enumerated(EnumType.STRING)
 	private SubcontractorType type;
-	@ManyToMany(cascade = CascadeType.MERGE)
+	@ManyToMany
 	@LazyCollection(LazyCollectionOption.FALSE)
 	private List<Trade> trades;
 	@OneToMany(cascade = CascadeType.MERGE)

@@ -10,6 +10,7 @@
 			<div id="general" class="tab-pane fade in active">
 				<h2>Sous-traitant</h2>
 				<br />
+				<input type="hidden" id="subcontractorId" data-ng-model="subcontractor.id" />
 				<label>Raison Sociale : </label>
 				<input type="text" id="subcontractorName" data-ng-model="subcontractor.name" />&nbsp;&nbsp;
 				<label>Type : </label>
@@ -56,7 +57,7 @@
 				<input type="text" id="job" data-ng-model="ct.job" />&nbsp;&nbsp;
 				<br /><br />
 				<label>Email : </label>
-				<input type="text" id="job" data-ng-model="ct.email" />&nbsp;&nbsp;
+				<input type="email" id="job" data-ng-model="ct.email" />&nbsp;&nbsp;
 				<label>Phone : </label>
 				<input type="text" id="phone" data-ng-model="ct.phone" />&nbsp;&nbsp;
 				<br /><br />
@@ -131,7 +132,7 @@
 		<hr />
 
 		<button id="subcontractorSaveBtn" class="btn btn-success" 
-			data-ng-click="subcontractor.save()" data-toggle="popover" data-trigger="focus" 
-			title="Succès" data-content="Sous-traitant sauvegardé avec succès !">Enregistrer Sous-Traitant</button>
+			data-ng-click="subcontractors.save()" data-toggle="popover" data-trigger="focus" 
+			title="Succès" data-content="Sous-traitant sauvegardé !">Enregistrer Sous-Traitant</button>
 	</form>
 </div>

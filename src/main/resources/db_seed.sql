@@ -54,7 +54,7 @@ INSERT INTO trade VALUES(29, 'Ebénisterie', 8);
 INSERT INTO trade VALUES(30, 'Plancher technique', 9);
 INSERT INTO trade VALUES(31, 'Résine', 9);
 INSERT INTO trade VALUES(32, 'Granite poli et lavé', 9);
-INSERT INTO trade VALUES(33, 'Revêtement souple (pvc et  )', 9);
+INSERT INTO trade VALUES(33, 'Revêtement souple', 9);
 INSERT INTO trade VALUES(34, 'Marbre', 9);
 INSERT INTO trade VALUES(35, 'Parquet stratifié', 9);
 INSERT INTO trade VALUES(36, 'Parquet massif', 9);

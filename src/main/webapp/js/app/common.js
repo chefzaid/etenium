@@ -10,12 +10,15 @@ function activateMenuItem() {
 }
 
 function computeAverage(ratings) {
-	var total = 0;
-	for(var rating of ratings){
-		var stars = rating.stars ? parseInt(rating.stars) : 0;
-		total += stars;
+	var resultStr = "-";
+	if(ratings.length > 0){
+		var total = 0;
+		for(var rating of ratings){
+			var stars = rating.stars ? parseInt(rating.stars) : 0;
+			total += stars;
+		}
+		var result = total / ratings.length;
+		resultStr = result.toPrecision(2) + " / 5";	
 	}
-	var result = total / ratings.length;
-	var resultStr = result.toPrecision(2) + " / 5";
 	return  resultStr.replace(".0", "") ;
 }
