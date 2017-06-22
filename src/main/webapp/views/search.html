@@ -44,19 +44,21 @@
 	</form>
 	
 	<h3>Résultat</h3>
-	<table class="table table-bordered table-striped">
+	<table id="searchResultsTable" class="table table-bordered table-striped">
 		<thead>
 			<tr>
 				<th class="col-md-3 text-center">Sous-traitant</th>
-				<th class="col-md-4 text-center">Corps d'état</th>
+				<th class="col-md-1 text-center">Type</th>
+				<th class="col-md-3 text-center">Corps d'état</th>
 				<th class="col-md-1 text-center">Moyenne</th>
-				<th class="col-md-1 text-center"></th>
-				<th class="col-md-1 text-center"></th>
+				<th class="col-md-1 text-center" data-orderable="false"></th>
+				<th class="col-md-1 text-center" data-orderable="false"></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr data-ng-repeat = "result in searchResults">
 				<td>{{ result.name }}</td>
+				<td>{{ result.type }}</td>
 				<td><ul class="list-unstyled">
 					<li data-ng-repeat="t in result.trades" data-ng-class="{'text-bold': t.makeBold}">{{ t.label }}</li>
 				</ul></td>

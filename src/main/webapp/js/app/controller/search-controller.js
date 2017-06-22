@@ -1,8 +1,9 @@
-app.controller('SearchController', function($scope, $http) {
+app.controller('SearchController', function($scope, $http, $timeout) {
 
 	activateMenuItem();
 	$('#subcontractors').select2();
 	
+
 	$scope.showTradesOfLot = [];
 	
 	$scope.lotList = [];
@@ -42,6 +43,8 @@ app.controller('SearchController', function($scope, $http) {
 		        	for(item of response.data){
 		        		$scope.subcontractor.buildSearchResult(item);
 		        	}
+		        	
+		        	$scope.subcontractor.renderSorting();
 	            }
 	        });
 		},
@@ -53,7 +56,7 @@ app.controller('SearchController', function($scope, $http) {
 	        });	
 		},
 		findByTrades : function() {
-			var tradesIds = "";
+			var tradesIds = ",";
 			for(var trade of $scope.tradeList){
 				if(trade.checked){
 					tradesIds += trade.id + ",";
@@ -66,8 +69,8 @@ app.controller('SearchController', function($scope, $http) {
 	        	for(item of response.data){
 	        		var result = $scope.subcontractor.buildSearchResult(item);
 	        		for(var i=0; i<result.trades.length; i++){
-	        			if(tradesIds.indexOf(result.trades[i].id) >= 0){
-	        				result.trades[i].makeBold = true;	
+	        			if(tradesIds.indexOf("," + result.trades[i].id + ",") >= 0){
+	        				result.trades[i].makeBold = true;
 		        		}	
 	        		}
 	        	}
@@ -77,6 +80,7 @@ app.controller('SearchController', function($scope, $http) {
 			var result = {
 				id : item.id,
 				name : item.name,
+				type : item.type,
 				trades : item.trades,
 				avgRating : computeAverage(item.ratings)
 			};
@@ -90,6 +94,8 @@ app.controller('SearchController', function($scope, $http) {
 			}else if(activeTab == "tabBySubcontractor"){
 				$scope.subcontractor.findByName();
 			}
+			
+			$scope.subcontractor.renderSorting();
 		},
 		reset : function() {
 			$scope.searchResults = [];
@@ -107,6 +113,20 @@ app.controller('SearchController', function($scope, $http) {
 		modify : function(index) {
 			var id = $scope.subcontractorList[index].id;
 			window.location = BASE_URL + "/?#!/subcontractors/" + id;
+		},
+		renderSorting : function() {
+			$(document).ready(function() {
+				$timeout(function(){
+				    $('#searchResultsTable').DataTable( {
+				        paging:   false,
+				        info:     false,
+				        retrieve: true,
+				        language: {
+				            search: "Filtrer :"
+				        }
+				    } );
+				}, 100)
+			} );
 		}
 	};
 	

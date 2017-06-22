@@ -1,6 +1,7 @@
 package ma.artitenium.etenium.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.util.StringUtils;
 import lombok.extern.apachecommons.CommonsLog;
 import ma.artitenium.etenium.dao.SubcontractorDao;
 import ma.artitenium.etenium.entity.Subcontractor;
+import ma.artitenium.etenium.entity.Trade;
 
 @CommonsLog
 @Service
@@ -23,6 +25,8 @@ public class SubcontractorService {
 	}
 
 	public void save(Subcontractor entity) {
+		List<Trade> uniqueTrades = new ArrayList<>(new HashSet<>(entity.getTrades()));
+		entity.setTrades(uniqueTrades);
 		subcontractorDao.save(entity);
 	}
 
